@@ -1,0 +1,67 @@
+<! DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 20px;
+            transition: background 800ms;
+        }
+
+        ul {
+            height: 100%;
+            list-style: none;
+            background: hsl(193, 66%, 85%);
+        }
+
+        li {
+            height: 100%;
+            background: hsl(193, 66%, 95%);
+        }
+
+        .highlight {
+            background: red;
+        }
+
+    </style>
+    <script src="../vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <ul @click.capture="callback($event)">
+        <li @click.capture="callback($event)">One</li>
+        <ul @click.capture="callback($event)">
+            <li @click.capture="callback($event)">Two</li>
+            <ul @click.capture="callback($event)">
+                <li @click.capture="callback($event)">Three. Click Me!!!</li>
+            </ul>
+        </ul>
+    </ul>
+</div>
+<script>
+    var pause = 200;
+    new Vue({
+        el: "#app",
+
+        methods: {
+            callback(event) {
+                var ms = event.timeout = (event.timeout + pause) || 0;
+                var target = event.currentTarget;
+
+                console.log(target);
+
+                setTimeout(function() {
+                    target.classList.add('highlight');
+                    setTimeout(function() {
+                        target.classList.remove('highlight');
+                    }, pause);
+                }, ms);
+            }
+        }
+    })
+</script>
+</body>
+</html>

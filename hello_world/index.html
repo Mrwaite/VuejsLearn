@@ -1,0 +1,89 @@
+<! DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <script src="../vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <p>{{ name }}</p>
+    <input v-model="name"> <!--双向绑定-->
+    <button onclick="changeData()" >change</button>
+</div>
+
+<div id="example1">
+    <div v-bind:class="[classA, isB ? classB : '']" v-bind:style="[styleObjectA, styleObjectB]"></div>
+</div>
+
+<div id="vIf">
+    <template v-if="ok">
+        <h1>title1</h1>
+        <p>title2</p>
+    </template>
+    <div v-if="con">mrwaite</div>
+    <div v-show="show">ok</div>
+</div>
+
+<div id="vfor">
+    <div v-for="(index, item) in items">
+        {{index}} {{item.message}}
+    </div>
+</div>
+
+
+<script>
+    var exampleData = {
+      name : 'mrwaite'
+    };
+    var VM1 = new Vue ({
+        el : '#app',
+        data : exampleData
+    });
+    function changeData() {
+        exampleData.name = "Mrwaite_c";
+    }
+    <!--数据好像是就绑定到了exampleData这个对象上了,只要改变了这个对象上面的数据,Vusjs就能检测到,然后做出相应的改变-->
+    var VM2 = new Vue ({
+        el : '#example1',
+        data : {
+            classA : 'A',
+            classB : 'asdsad',
+            classC : 'C',
+            isB : true,
+            isC : false,
+            styleObjectA : {
+                color : 'red',
+                fontSize : '13px'
+            },
+            styleObjectB : {
+                width : '100px',
+                height : '100px',
+                transform : 'rotate(7deg)',
+                textFillColor : 'transparent' //自动添加-webkit-前缀
+            }
+        }
+    });
+
+    var VM3 = new Vue ({
+        el : "#vIf",
+        data : {
+            ok : true,
+            con : true,
+            show : true
+        }
+    });
+
+    var VMFor = new Vue ({
+        el : '#vfor' ,
+        data : {
+            items : [
+                {message : 'yes'},
+                {message : 'no'}
+            ]
+        }
+    });
+
+</script>
+</body>
+</html>

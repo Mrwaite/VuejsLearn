@@ -1,0 +1,28 @@
+<! DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <script src="../vue.js"></script>
+</head>
+<body>
+<div id="demo">
+    <input type="text" v-model="parentMsg" value="msg">
+    <!--v-model相当于html形式的this.xxx = xxx ,改变变量-->
+    <br>
+    <child :my-message="parentMsg"></child>
+    <!--<span>{{ parentMsg }}</span>-->
+    <!--div[msg="1"] 和 div[v-bind:msg="1"] 的区别,前者只是传递了一个字符串,后者是传递是一个变量,这个例子可以很好的说明问题,:my-message传递是input输入的变量,my-message传递的是字符串-->
+</div>
+<script>
+    Vue.component('child', {
+        props : ['myMessage'],
+        template : '<span>{{ myMessage }}</span>'
+    })
+
+    var VM1 = new Vue ({
+        el : '#demo'
+    })
+</script>
+</body>
+</html>

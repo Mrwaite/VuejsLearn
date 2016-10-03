@@ -1,0 +1,56 @@
+<! DOCTYPE html>
+<html >
+<head>
+    <meta charset="utf-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <script src="../vue.js"></script>
+</head>
+<body>
+<div id="example-2">
+    <p v-if="greeting">Hello!</p>
+</div>
+
+<div id="von">
+    <button v-on:click="greet">Greet</button>
+</div>
+
+<div id="example3">
+    <button v-on:click="say('hi')">hi</button>
+    <button v-on:click="say('what')">what</button>
+</div>
+
+<script>
+    var exampleVM2 = new Vue ({
+        el : '#example-2',
+        data : {
+            greeting : true
+        }
+    });
+
+    var VM1 = new Vue({
+        el : '#von',
+        data  : {
+            name : 'Vue.js'
+        },
+        methods : {
+            greet : function (event) {
+                console.log(event);
+                console.log('hello' + this.name + '!');
+                console.log(event.target.tagName);
+            }
+        }
+    });
+
+    var VM3 = new Vue({
+        el : '#example3',
+        methods : {
+            say : function (msg) {
+                console.log(msg);
+            }
+        }
+    });
+
+    //exampleVM2.greeting = false;
+</script>
+</body>
+</html>

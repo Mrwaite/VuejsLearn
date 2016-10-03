@@ -1,0 +1,87 @@
+<! DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="../animate.css" type="text/css">
+    <script src="../vue.js"></script>
+    <style>
+        .expand-transition {
+            transition: all .3s ease;
+            height: 30px;
+            padding: 10px;
+            background-color: #eee;
+            overflow: hidden;
+        }
+        .expand-enter, .expand-leave {
+            height: 0;
+            padding: 0 10px;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="demo">
+<div v-if="show" transition="expand" >hello</div>
+<button @click="change">Toggle</button>
+</div>
+<div id="animate">
+    <div v-show="show" transition="bounce" class="animated">watch me bounce</div>
+    <button @click="change">Taggle</button>
+</div>
+<script>
+    var VM1 = new Vue({
+        el: '#demo',
+        data: {
+            show: true
+        },
+        methods : {
+            change : function () {
+                this.show = !this.show;
+            }
+        },
+        transitions: {
+            expand: {
+                beforeEnter: function (el) {
+                    el.textContent = 'beforeEnter'
+                },
+                enter: function (el) {
+                    el.textContent = 'enter'
+                },
+                afterEnter: function (el) {
+                    el.textContent = 'afterEnter'
+                },
+                beforeLeave: function (el) {
+                    el.textContent = 'beforeLeave'
+                },
+                leave: function (el) {
+                    el.textContent = 'leave'
+                },
+                afterLeave: function (el) {
+                    el.textContent = 'afterLeave'
+                }
+            }
+        }
+    });
+
+
+    var VM2 = new Vue ({
+        el : '#animate',
+        data : {
+            show : true
+        },
+        methods : {
+            change : function () {
+                this.show = !this.show;
+            }
+        },
+        transitions : {
+            bounce : {
+                enterClass: 'bounceInLeft',
+                leaveClass: 'bounceOutRight'
+            }
+        }
+    })
+</script>
+</body>
+</html>
