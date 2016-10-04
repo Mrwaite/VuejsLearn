@@ -1,0 +1,34 @@
+<! DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <script src="../vue.js"></script>
+</head>
+<body>
+<template id="demo">
+    <div>
+        <h1>内容被分发且重新组合</h1>
+        <slot>默认分发处</slot>
+        <slot name="two"></slot>
+        <slot name="one"></slot>
+    </div>
+</template>
+<script>
+    Vue.component('child', {
+        template : '#demo'
+    })
+</script>
+<div id="parent-template">
+    <child>
+        <p slot="one">sdssad</p>
+
+    </child>
+</div>
+<script>
+    var VM1 = new Vue ({
+        el : '#parent-template'
+    })
+</script>
+</body>
+</html>

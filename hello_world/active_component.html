@@ -1,0 +1,48 @@
+<! DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <script src="../vue.js"></script>
+    <style>
+        .fade-transition {
+            transition: opacity .3s ease;
+        }
+        .fade-enter, .fade-leave {
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="demo">
+    <input type="radio" name="check" value="A" @click="currentView='viewA'" checked>A
+    <input type="radio" name="check" value="B" @click="currentView='viewB'">B
+    <component :is="currentView" transition="fade" transition-mode="out-in"></component>
+</div>
+<template id="componentA">
+<p>component A</p>
+</template>
+<template id="componentB">
+<p>component B</p>
+</template>
+<script>
+   /* Vue.component('EA', {
+        template : '#componentA'
+    });
+    Vue.component('EB', {
+        template : '#componentB'
+    });*/
+    var VM1 = new Vue ({
+        el : '#demo',
+        data : {
+            currentView : 'viewA'
+        },
+        components : {
+            viewA : { template : '#componentA' },
+            viewB : { template : '#componentB' }
+        }
+
+    })
+</script>
+</body>
+</html>
