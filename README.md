@@ -392,6 +392,25 @@ div[msg="1"] 和 div[v-bind:msg="1"] 的区别
 
 prop验证
 
+slot 内容分发网络
+
+## 深入响应式原理
+
+在vuejs官方文档中看到：
+
+因为 JavaScript 的限制，Vue.js 不能检测到下面数组变化：
+
+直接用索引设置元素，如 vm.items[0] = {}；
+修改数据的长度，如 vm.items.length = 0
+据说vuejs是遍历对象的所有属性和方法加上钩子，为什么无法检测到上面这两种变化。
+
+解答 : 
+
+Vue是靠setter,getter这两个访问器属性,来检测数据的变化,并实时更新DOM
+数组的变动就是给予上面的两个方法.Vue.js必须通过Object.defineProperty这儿方法才能修改这两个es底层的的东西,而IE8是第一个实现这个方法的!所以不兼容IE8一下.
+Vue.js为了检测push等一系列数组方法对于数组数据的影响,都会重新封装一边,加上数据的相应.
+但是直接对于数组数据索引的操作vm.item[0] = '1',或者vm.length = 0,这样的Vue.js根本没法给你做一个Object.defineproperty这样的操作,自然没有setter,getter.
+
 
 
 
